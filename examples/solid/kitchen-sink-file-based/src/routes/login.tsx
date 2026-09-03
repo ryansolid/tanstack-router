@@ -28,11 +28,14 @@ function LoginComponent() {
   }
 
   // Ah, the subtle nuances of client side auth. 🙄
-  Solid.createEffect(() => {
-    if (context().status === 'loggedIn' && search().redirect) {
-      router.history.push(search().redirect!)
-    }
-  })
+  Solid.createEffect(
+    () => [context().status, search().redirect] as const,
+    ([status, redirect]) => {
+      if (status === 'loggedIn' && redirect) {
+        router.history.push(redirect)
+      }
+    },
+  )
 
   return (
     <Solid.Show

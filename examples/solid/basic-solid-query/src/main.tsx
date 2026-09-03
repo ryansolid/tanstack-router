@@ -130,10 +130,13 @@ function PostErrorComponent({ error, reset }: ErrorComponentProps) {
     return <div>{error.message}</div>
   }
 
-  createEffect(() => {
-    reset()
-    queryClient.resetQueries()
-  })
+  createEffect(
+    () => {},
+    () => {
+      reset()
+      queryClient.resetQueries()
+    },
+  )
 
   return (
     <div>
